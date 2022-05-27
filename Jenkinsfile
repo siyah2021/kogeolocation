@@ -26,15 +26,15 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                script {
+                script{
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 } 
             }
         }
         stage('Deploy image') {
-            steps {
-                script { 
-                    docker.withRegistry("https://"+registry,"ecr:Global:"+registryCredential) {
+            steps{
+                script{ 
+                    docker.withRegistry("https://"+registry,"ecr:us-east-1:"+registryCredential) {
                         dockerImage.push()
                     }
                 }
